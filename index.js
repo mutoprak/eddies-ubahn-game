@@ -193,8 +193,9 @@ const berlinRailNetwork = {
   const endStation = "Zoologischer Garten"; // Replace with your desired end station
 
   generatePairButton.addEventListener("click", function () {
-      document.getElementById("pathInput").value = '';
+      document.getElementById("pathInput").value = "";
       const randomStations = berlinRailNetwork.getRandomStations();
+      console.log(randomStations);
       const startStation = randomStations.from; // Replace with your desired start station
       const endStation = randomStations.to; // Replace with your desired end station
       stationPairElement.textContent = `From: ${startStation}, To: ${endStation}`;
@@ -210,7 +211,7 @@ const berlinRailNetwork = {
     const pathInput = document.getElementById("pathInput").value;
     const pathArray = pathInput.split(",").map(item => item.trim());
 
-    const isCorrect = isPathCorrect(pathArray, startStation, endStation, berlinRailNetwork);
+    const isCorrect = berlinRailNetwork.isPathCorrect(pathArray, startStation, endStation, berlinRailNetwork);
 
     if (isCorrect) {
       resultElement.textContent = "The path is correct!";
