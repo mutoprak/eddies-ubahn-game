@@ -186,6 +186,40 @@ const berlinRailNetwork = {
       },
   };
 
+  // Handle "Generate New Stations Pair" button click
+  const generatePairButton = document.getElementById("generatePair");
+  const stationPairElement = document.getElementById("stationPair");
+  const startStation = "Alexanderplatz"; // Replace with your desired start station
+  const endStation = "Zoologischer Garten"; // Replace with your desired end station
+
+  generatePairButton.addEventListener("click", function () {
+      document.getElementById("pathInput").value = '';
+      const randomStations = berlinRailNetwork.getRandomStations();
+      const startStation = randomStations.from; // Replace with your desired start station
+      const endStation = randomStations.to; // Replace with your desired end station
+      stationPairElement.textContent = `From: ${startStation}, To: ${endStation}`;
+  });
+
+  // Handle form submission
+  const form = document.getElementById("pathForm");
+  const resultElement = document.getElementById("result");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const pathInput = document.getElementById("pathInput").value;
+    const pathArray = pathInput.split(",").map(item => item.trim());
+
+    const isCorrect = isPathCorrect(pathArray, startStation, endStation, berlinRailNetwork);
+
+    if (isCorrect) {
+      resultElement.textContent = "The path is correct!";
+    } else {
+      resultElement.textContent = "The path is incorrect.";
+    }
+  });
+
+
   // const {from, to} = berlinRailNetwork.getRandomStations();
   // const startStation = from;
   // const endStation = to;
