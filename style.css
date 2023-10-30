@@ -1,0 +1,64 @@
+/* Reset some default styles to have a clean slate */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a background color and set text color */
+body {
+    background-color: #333333; /* Dark gray background */
+    color: #ffffff; /* White text */
+    font-family: Arial, sans-serif; /* Use a common web font */
+}
+
+/* Style the header area */
+header {
+    background-color: #ffcc00; /* Berlin U-Bahn yellow */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style the navigation menu */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffcc00; /* Berlin U-Bahn yellow */
+}
+
+/* Style the main content area */
+main {
+    padding: 20px;
+}
+
+/* Style the sections */
+section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #444444; /* Slightly darker gray background */
+}
+
+section h2 {
+    color: #ffcc00; /* Berlin U-Bahn yellow */
+}
+
+/* Style the footer */
+footer {
+    text-align: center;
+    background-color: #ffcc00; /* Berlin U-Bahn yellow */
+    padding: 10px;
+}
+
+/* Make links stand out when hovered */
+a:hover {
+    color: #333333; /* Dark gray */
+    background-color: #ffcc00; /* Berlin U-Bahn yellow */
+}
