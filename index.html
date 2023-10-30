@@ -4,25 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>My Simple HTML Page</title>
+    <title>Eddie's U-Bahn Game</title>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Simple HTML Page</h1>
+        <h1>Eddie's Ubahn Game</h1>
     </header>
-
-    <nav>
-        <ul>
-            <li><a href="#">Play</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
     <main>
         <section>
-            <h2>About Us</h2>
-            <p>This is a sample HTML5 page to get you started with web development.</p>
+            <h2>Bring Eddie from A to B</h2>
+            <button id="generatePair">New Game</button>
+            <p id="stationPair">From: Alexanderplatz To: Zoologischer Garten</p>
+            <form id="pathForm">
+                <label for="pathInput">Enter your path (e.g., "U2, U1, U8"):</label>
+                <input type="text" id="pathInput" required>
+                <button type="submit">Check</button>
+              </form>
+              <p id="result"></p>
+              <script>
+                // Handle "Generate New Stations Pair" button click
+                const generatePairButton = document.getElementById("generatePair");
+                const stationPairElement = document.getElementById("stationPair");
+                const startStation = "Alexanderplatz"; // Replace with your desired start station
+                const endStation = "Zoologischer Garten"; // Replace with your desired end station
+
+                generatePairButton.addEventListener("click", function () {
+                    document.getElementById("pathInput").value = '';
+                    const randomStations = berlinRailNetwork.generateRandomStations();
+                    const startStation = randomStations.from; // Replace with your desired start station
+                    const endStation = randomStations.to; // Replace with your desired end station
+                    stationPairElement.textContent = `From: ${startStation}, To: ${endStation}`;
+                });
+            
+                // Handle form submission
+                const form = document.getElementById("pathForm");
+                const resultElement = document.getElementById("result");
+            
+                form.addEventListener("submit", function (e) {
+                  e.preventDefault();
+            
+                  const pathInput = document.getElementById("pathInput").value;
+                  const pathArray = pathInput.split(",").map(item => item.trim());
+            
+                  const isCorrect = isPathCorrect(pathArray, startStation, endStation, berlinRailNetwork);
+            
+                  if (isCorrect) {
+                    resultElement.textContent = "The path is correct!";
+                  } else {
+                    resultElement.textContent = "The path is incorrect.";
+                  }
+                });
+              </script>
         </section>
 
         <section>
