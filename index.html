@@ -14,13 +14,37 @@
         <section>
             <h2>Bring Eddie from A to B</h2>
             <button id="generatePair">New Game</button>
-            <p id="stationPair">From: Alexanderplatz To: Zoologischer Garten</p>
+            <button id="resetButton">Reset</button>
+
+            <div id="a-to-b-stations">
+                <div>
+                    <div class="station-icon">A</div>
+                    <span id="station-a">Alexanderplatz</span>
+                </div>
+                <div>
+                    <div class="station-icon">B</div>
+                    <span id="station-b">Zoologischer Garten</span>
+                </div>
+              </div>
             <form id="pathForm">
-                <label for="pathInput">Enter your path (e.g., "U2, U1, U8"):</label>
-                <input type="text" id="pathInput" required>
+                <ul id="ubahn-trip"></ul>
                 <button type="submit">Check</button>
-              </form>
-              <p id="result"></p>
+                <p id="result"></p>
+            </form>
+        </section>
+        <section id="available-ubahn-lines">
+            <label for="pathInput">Choose your path (e.g., "U2>>U1>>U8"):</label>
+              <ul id="ubahn-lines">
+                <li class="U1">U1</li>
+                <li class="U2">U2</li>
+                <li class="U3">U3</li>
+                <li class="U4">U4</li>
+                <li class="U5">U5</li>
+                <li class="U6">U6</li>
+                <li class="U7">U7</li>
+                <li class="U8">U8</li>
+                <li class="U9">U9</li>
+              </ul>
         </section>
     </main>
 
@@ -30,6 +54,7 @@
             Email: <a href="mailto:mutoprak@gmail.com">mutoprak@gmail.com</a><br>
         </address>
     </footer>
+    <script src="berlinRailNetwork.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

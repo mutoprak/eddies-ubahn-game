@@ -6,14 +6,19 @@ body, h1, p {
 
 /* Apply a background color and set text color */
 body {
-    background-color: #333333; /* Dark gray background */
+    background-color: #333; /* Dark gray background */
     color: #ffffff; /* White text */
     font-family: Arial, sans-serif; /* Use a common web font */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the container takes up the full viewport height */
+    margin: 0; /* Remove default margin */
 }
 
 /* Style the header area */
 header {
     background-color: #ffcc00; /* Berlin U-Bahn yellow */
+    color: #333;
     padding: 20px;
     text-align: center;
 }
@@ -36,6 +41,7 @@ nav a {
 
 /* Style the main content area */
 main {
+    flex: 1;
     padding: 20px;
 }
 
@@ -53,8 +59,9 @@ section h2 {
 /* Style the footer */
 footer {
     text-align: center;
+    color: #333;
     background-color: #ffcc00; /* Berlin U-Bahn yellow */
-    padding: 10px;
+    padding: 10px 0;
 }
 
 /* Make links stand out when hovered */
@@ -62,3 +69,66 @@ a:hover {
     color: #333333; /* Dark gray */
     background-color: #ffcc00; /* Berlin U-Bahn yellow */
 }
+
+ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul li {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #222;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
+
+  ul li:disabled {
+    background-color: #ccc; /* Change to your desired color for disabled items */
+    cursor: not-allowed;
+    pointer-events: none; /* Prevent interaction with disabled items */
+  }
+  
+  ul li:hover:not(:disabled) {
+    background-color: #b5b5b5;
+  }
+  
+/* U-Bahn Line Colors */
+.U1 { background-color: rgb(125, 172, 76); } 
+.U2 { background-color: rgb(219, 66, 31); }
+.U3 { background-color: rgb(24, 104, 61); }
+.U4 { background-color: rgb(240, 215, 36); color: black; }
+.U5 { background-color: rgb(126, 83, 48); }
+.U6 { background-color: rgb(140, 109, 171); }
+.U7 { background-color: rgb(82, 140, 186); }
+.U8 { background-color: rgb(34, 179, 134); }
+.U9 { background-color: rgb(244, 120, 30); }
+
+.a-to-b-lines {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    background-color: #f0f0f0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .station-icon {
+    display: inline-flex;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 5px;
+  }
+
+  .station-name {
+    white-space: nowrap; /* Prevent station names from wrapping */
+  }
