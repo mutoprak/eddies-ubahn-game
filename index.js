@@ -36,18 +36,7 @@
       resultElement.textContent = "The path is incorrect.";
       document.body.style.backgroundColor = "#995533";
     }
-    document.getElementById("resetButton").click(); // reset game
   });
-
-    // Add a click event listener to the reset button
-    const resetButton = document.getElementById("resetButton");
-    resetButton.addEventListener("click", function () {
-      document.getElementById("pathInput").value = ""; // Reset the input value
-      document.querySelectorAll('li').forEach(line => {
-        line.setAttribute("data-disabled", "false");
-      });
-    });
-
 
     const ulPath = document.getElementById("ubahn-trip");
     const ulAvailableLines = document.getElementById("ubahn-lines");

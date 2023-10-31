@@ -118,21 +118,21 @@ const berlinRailNetwork = {
     connections: {
         "Uhlandstrasse": [
             { station: "Kurfuerstendamm", line: "U1", travelTime: 1 },
-            { station: "Gleisdreieck", line: "U1", travelTime: 5 },
             { station: "Nollendorfplatz", line: "U1", travelTime: 3 },
+            { station: "Gleisdreieck", line: "U1", travelTime: 5 },
             { station: "Moeckernbruecke", line: "U1", travelTime: 6 },
             { station: "Hallesches Tor", line: "U1", travelTime: 7 },
             { station: "Kottbusser Tor", line: "U1", travelTime: 9 },
             { station: "Warschauer Strasse", line: "U1", travelTime: 12 },
         ],
         "Warschauer Strasse": [
-            { station: "Kurfuerstendamm", line: "U1", travelTime: 11 },
+            { station: "Kottbusser Tor", line: "U1", travelTime: 3 },
+            { station: "Hallesches Tor", line: "U1", travelTime: 5 },
             { station: "Gleisdreieck", line: "U1", travelTime: 7 },
             { station: "Nollendorfplatz", line: "U1", travelTime: 9 },
             { station: "Wittenbergplatz", line: "U1", travelTime: 10 },
+            { station: "Kurfuerstendamm", line: "U1", travelTime: 11 },
             { station: "Moeckernbruecke", line: "U1", travelTime: 6 },
-            { station: "Hallesches Tor", line: "U1", travelTime: 5 },
-            { station: "Kottbusser Tor", line: "U1", travelTime: 3 },
             { station: "Uhlandstrasse", line: "U1", travelTime: 12 },
             { station: "Gleisdreieck", line: "U3", travelTime: 7 },
             { station: "Nollendorfplatz", line: "U3", travelTime: 9 },
@@ -281,7 +281,7 @@ const berlinRailNetwork = {
             { station: "Berliner Strasse", line: "U9", travelTime: 5 },
             { station: "Osloer Strasse", line: "U9", travelTime: 17 }
         ],
-        
+
         "Alexanderplatz": [
             { station: "Kottbusser Tor", line: "U8", travelTime: 4 },
             { station: "Hermannplatz", line: "U8", travelTime: 6 },
@@ -592,55 +592,54 @@ const berlinRailNetwork = {
 function findQuickestPathWithLines(connections, startStation, endStation, currentPath = [], currentTravelTime = 0, visitedStations = new Set()) {
     // Mark the current station as visited
     visitedStations.add(startStation);
-  
+
     // Add the current station to the path
     currentPath.push(startStation);
-  
+
     // If the current station is the end station, return the path and travel time
     if (startStation === endStation) {
-      return { path: currentPath, travelTime: currentTravelTime };
+        return { path: currentPath, travelTime: currentTravelTime };
     }
-  
+
     let quickestPath = null;
     let quickestPathLines = null;
-  
+
     // Explore all possible connections from the current station
     for (const connection of connections[startStation] || []) {
-      const { station, travelTime, line } = connection;
-  
-      if (!visitedStations.has(station)) {
-        const result = findQuickestPathWithLines(
-          connections,
-          station,
-          endStation,
-          [...currentPath],
-          currentTravelTime + travelTime,
-          visitedStations
-        );
-  
-        // If a quicker path is found, update quickestPath and quickestPathLines
-        if (result && (!quickestPath || result.travelTime < quickestPath.travelTime)) {
-          quickestPath = result;
-          quickestPathLines = [line];
-        } else if (result && result.travelTime === quickestPath.travelTime) {
-          quickestPathLines.push(line);
+        const { station, travelTime, line } = connection;
+
+        if (!visitedStations.has(station)) {
+            const result = findQuickestPathWithLines(
+                connections,
+                station,
+                endStation,
+                [...currentPath],
+                currentTravelTime + travelTime,
+                visitedStations
+            );
+
+            // If a quicker path is found, update quickestPath and quickestPathLines
+            if (result && (!quickestPath || result.travelTime < quickestPath.travelTime)) {
+                quickestPath = result;
+                quickestPathLines = [line];
+            } else if (result && result.travelTime === quickestPath.travelTime) {
+                quickestPathLines.push(line);
+            }
         }
-      }
     }
-  
+
     return quickestPath ? { path: quickestPath.path, travelTime: quickestPath.travelTime, lines: quickestPathLines } : null;
-  }
-  
-  const startStation = "Uhlandstrasse";
-  const endStation = "Krumme Lanke";
-  
-  const quickestPathWithLines = findQuickestPathWithLines(berlinRailNetwork.connections, startStation, endStation);
-  
-  if (quickestPathWithLines) {
-    console.log("Quickest path:", quickestPathWithLines.path.join(" -> "));
-    console.log("Travel time:", quickestPathWithLines.travelTime);
-    console.log("Lines:", quickestPathWithLines.lines);
-  } else {
-    console.log("No path found.");
-  }
-  
+}
+
+// const startStation1 = "Uhlandstrasse";
+// const endStation1 = "Krumme Lanke";
+
+// const quickestPathWithLines = findQuickestPathWithLines(berlinRailNetwork.connections, startStation1, endStation1);
+
+// if (quickestPathWithLines) {
+//     console.log("Quickest path:", quickestPathWithLines.path.join(" -> "));
+//     console.log("Travel time:", quickestPathWithLines.travelTime);
+//     console.log("Lines:", quickestPathWithLines.lines);
+// } else {
+//     console.log("No path found.");
+// }

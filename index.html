@@ -14,7 +14,7 @@
         <section>
             <h2>Bring Eddie from A to B</h2>
             <button id="generatePair">New Game</button>
-            <button id="resetButton">Reset</button>
+            <button type="reset" onclick="window.location.reload();">Reset</button>
 
             <div id="a-to-b-stations">
                 <div>
@@ -28,7 +28,7 @@
               </div>
             <form id="pathForm">
                 <ul id="ubahn-trip"></ul>
-                <button type="submit">Check</button>
+                <button type="submit" disabled>Check</button>
                 <p id="result"></p>
             </form>
         </section>
