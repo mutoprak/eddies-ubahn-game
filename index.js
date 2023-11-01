@@ -6,7 +6,7 @@
   let endStation = "Zoologischer Garten"; // Replace with your desired end station
 
   generatePairButton.addEventListener("click", function () {
-      const randomStations = berlinRailNetwork.getRandomStations();
+      const randomStations = berlinRailNetwork.getRandomStationPair();
       console.log(randomStations);
       stationAElement.textContent = randomStations.from; 
       stationBElement.textContent = randomStations.to; 
@@ -27,7 +27,7 @@
         pathArray.push({ text: li.textContent });
       });
 
-    const isCorrect = berlinRailNetwork.isPathCorrect(pathArray, startStation, endStation);
+    const isCorrect = berlinRailNetwork.isShortestPathCombinationCorrect(startStation, endStation, pathArray);
 
     if (isCorrect) {
       resultElement.textContent = "The path is correct!";
