@@ -1,3 +1,20 @@
+// helper function to check if two arrays are identical
+function isIdentical(arr1, arr2) {
+  console.log(arr1, arr2);
+  if (arr1.length !== arr2.length) {
+      return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+          return false;
+      }
+  }
+
+  return true;
+}
+
+  
   // Handle "Generate New Stations Pair" button click
   const generatePairButton = document.getElementById("generatePair");
   const stationAElement = document.getElementById("station-a");
@@ -10,36 +27,41 @@
       console.log(randomStations);
       stationAElement.textContent = randomStations.from; 
       stationBElement.textContent = randomStations.to; 
+      startStation = randomStations.from;
+      endStation = randomStations.to;
   });
 
   // Handle form submission
   const form = document.getElementById("pathForm");
   const resultElement = document.getElementById("result");
+  const ulPath = document.getElementById("ubahn-trip");
+  const ulAvailableLines = document.getElementById("ubahn-lines");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    const ulPath = document.getElementById("ubahn-trip");
 
     const liElements = ulPath.querySelectorAll("li");
     const pathArray = [];
 
     liElements.forEach(li => {
-        pathArray.push({ text: li.textContent });
+        pathArray.push(li.textContent );
       });
 
-    const isCorrect = berlinRailNetwork.isShortestPathCombinationCorrect(startStation, endStation, pathArray);
+    const quickestPathWithLines = berlinRailNetwork.findQuickestPathWithLines(startStation, endStation);
 
+    const isCorrect = isIdentical(quickestPathWithLines.lines, pathArray);
     if (isCorrect) {
       resultElement.textContent = "The path is correct!";
-      document.body.style.backgroundColor = "#559933";
+      document.body.style.backgroundColor = "green";
     } else {
       resultElement.textContent = "The path is incorrect.";
-      document.body.style.backgroundColor = "#995533";
+      resultElement.textContent += ` Quickest path: ${quickestPathWithLines.path.join(" -> ")}`;
+      resultElement.textContent += ` Travel time: ${quickestPathWithLines.travelTime}`;
+      resultElement.textContent += ` Lines: ${quickestPathWithLines.lines.join(" >> ")}`;
+      document.body.style.backgroundColor = "red";
     }
   });
 
-    const ulPath = document.getElementById("ubahn-trip");
-    const ulAvailableLines = document.getElementById("ubahn-lines");
 
     ulPath.addEventListener("click", (e) => {
       if (e.target && e.target.matches("li")) {

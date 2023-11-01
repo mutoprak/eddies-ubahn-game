@@ -11,29 +11,23 @@
         <h1>Eddie's Ubahn Game</h1>
     </header>
     <main>
-        <section>
-            <h2>Bring Eddie from A to B</h2>
+        <section id="answer-section">
+            <h2>Bring Eddie from <span class="gray">A</span> to <span class="green">B</span> (real quick)</h2>
             <button id="generatePair">New Game</button>
             <button type="reset" onclick="window.location.reload();">Reset</button>
 
-            <div id="a-to-b-stations">
+            <div class="a-to-b-stations">
                 <div>
-                    <div class="station-icon">A</div>
-                    <span id="station-a">Alexanderplatz</span>
-                </div>
-                <div>
-                    <div class="station-icon">B</div>
-                    <span id="station-b">Zoologischer Garten</span>
+                    <span id="station-a" class="gray">Alexanderplatz</span>
+                    >>
+                    <span id="station-b" class="green">Zoologischer Garten</span>
                 </div>
               </div>
-            <form id="pathForm">
-                <ul id="ubahn-trip"></ul>
-                <button type="submit">Check</button>
-                <p id="result"></p>
-            </form>
+              <ul id="ubahn-trip"></ul>
+              <p id="result"></p>
         </section>
         <section id="available-ubahn-lines">
-            <label for="pathInput">Choose your path (e.g., "U2>>U1>>U8"):</label>
+            <label for="pathInput">Find the quickest path (e.g., "U5 >> U6 >> U2"):</label>
               <ul id="ubahn-lines">
                 <li class="U1">U1</li>
                 <li class="U2">U2</li>
@@ -45,6 +39,10 @@
                 <li class="U8">U8</li>
                 <li class="U9">U9</li>
               </ul>
+              <form id="pathForm">
+                <button type="submit">Check</button>
+            </form>
+
         </section>
     </main>
 
