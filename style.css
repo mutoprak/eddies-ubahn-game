@@ -98,21 +98,22 @@ ul {
 .U9 { background-color: rgb(244, 120, 30); }
 
 .a-to-b-stations {
-    padding: 10px;
     margin-top: 10px;
   }
 
   .station-icon {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%; /* Create a circle by setting border-radius to 50% */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        color: #fff; /* White text color */
+    display: inline-flex;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    height: 20px;
+    width: 20px;
+    font-size: 18px;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 3px;
+    margin: 3px;
   }
-
 
   .station-name {
     white-space: nowrap; /* Prevent station names from wrapping */

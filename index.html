@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Eddie's U-Bahn Game</title>
 </head>
+
 <body>
     <header>
         <h1>Eddie's Ubahn Game</h1>
@@ -18,17 +20,21 @@
 
             <div class="a-to-b-stations">
                 <div>
-                    <span id="station-a" class="gray">Alexanderplatz</span>
-                    >>
-                    <span id="station-b" class="green">Zoologischer Garten</span>
+                    <div class="station-icon">A</div>
+                    <span id="station-a">Alexanderplatz</span>
                 </div>
-              </div>
-              <ul id="ubahn-trip"></ul>
-              <p id="result"></p>
+                <div>
+                    <div class="station-icon">B</div>
+                    <span id="station-b">Zoologischer Garten</span>
+                </div>
+
+            </div>
+            <ul id="ubahn-trip"></ul>
+            <p id="result"></p>
         </section>
         <section id="available-ubahn-lines">
             <label for="pathInput">Find the quickest path (e.g., "U5 >> U6 >> U2"):</label>
-              <ul id="ubahn-lines">
+            <ul id="ubahn-lines">
                 <li class="U1">U1</li>
                 <li class="U2">U2</li>
                 <li class="U3">U3</li>
@@ -38,8 +44,8 @@
                 <li class="U7">U7</li>
                 <li class="U8">U8</li>
                 <li class="U9">U9</li>
-              </ul>
-              <form id="pathForm">
+            </ul>
+            <form id="pathForm">
                 <button type="submit">Check</button>
             </form>
 
@@ -55,4 +61,5 @@
     <script src="berlinRailNetwork.js"></script>
     <script src="index.js"></script>
 </body>
+
 </html>
