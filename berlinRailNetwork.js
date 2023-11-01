@@ -573,7 +573,7 @@ const berlinRailNetwork = {
         ]
     },
 
-    getRandomStations() {
+    getRandomStationPair() {
         const stationsArray = Array.from(berlinRailNetwork.stations);
         const fromIndex = Math.floor(Math.random() * stationsArray.length);
         let toIndex = fromIndex;
@@ -586,55 +586,96 @@ const berlinRailNetwork = {
         const toStation = stationsArray[toIndex];
 
         return { from: fromStation, to: toStation };
+    },
+
+    findQuickestPathWithLines(startStation, endStation) {
+        // Initialize data structures for Dijkstra's
+        const distances = {};
+        const previousStations = {};
+        const unvisitedStations = new Set();
+        const lines = {};
+
+        // Initialize all distances to infinity except for the startStation
+        for (const station in berlinRailNetwork.connections) {
+            distances[station] = Infinity;
+            unvisitedStations.add(station);
+        }
+        distances[startStation] = 0;
+
+        while (unvisitedStations.size > 0) {
+            // Get station with the smallest distance
+            let currentStation = null;
+            for (const station of unvisitedStations) {
+                if (currentStation === null || distances[station] < distances[currentStation]) {
+                    currentStation = station;
+                }
+            }
+
+            if (distances[currentStation] === Infinity) {
+                break; // All remaining stations are not reachable from the startStation
+            }
+
+            unvisitedStations.delete(currentStation);
+
+            for (const connection of berlinRailNetwork.connections[currentStation]) {
+                const { station: neighbor, travelTime, line } = connection;
+                const alt = distances[currentStation] + travelTime;
+
+                if (alt < distances[neighbor]) {
+                    distances[neighbor] = alt;
+                    previousStations[neighbor] = currentStation;
+                    lines[neighbor] = line;
+                }
+            }
+        }
+
+        // Reconstruct the path
+        const path = [];
+        let currentPathStation = endStation;
+        const usedLines = [];
+
+        while (currentPathStation) {
+            path.unshift(currentPathStation);
+            if (currentPathStation in lines) {
+                usedLines.unshift(lines[currentPathStation]);
+            }
+            currentPathStation = previousStations[currentPathStation];
+        }
+
+        return {
+            path: path,
+            travelTime: distances[endStation] !== Infinity ? distances[endStation] : null,
+            lines: usedLines
+        };
+    },
+
+    isShortestPathCombinationCorrect(startStation, endStation, givenLines) {
+        const result = berlinRailNetwork.findQuickestPathWithLines(startStation, endStation);
+
+        if (!result || !result.lines) {
+            return false; // No path found
+        }
+
+        // Compare the two line arrays
+        if (result.lines.length !== givenLines.length) {
+            return false;
+        }
+
+        for (let i = 0; i < result.lines.length; i++) {
+            if (result.lines[i] !== givenLines[i]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 };
 
-function findQuickestPathWithLines(connections, startStation, endStation, currentPath = [], currentTravelTime = 0, visitedStations = new Set()) {
-    // Mark the current station as visited
-    visitedStations.add(startStation);
-
-    // Add the current station to the path
-    currentPath.push(startStation);
-
-    // If the current station is the end station, return the path and travel time
-    if (startStation === endStation) {
-        return { path: currentPath, travelTime: currentTravelTime };
-    }
-
-    let quickestPath = null;
-    let quickestPathLines = null;
-
-    // Explore all possible connections from the current station
-    for (const connection of connections[startStation] || []) {
-        const { station, travelTime, line } = connection;
-
-        if (!visitedStations.has(station)) {
-            const result = findQuickestPathWithLines(
-                connections,
-                station,
-                endStation,
-                [...currentPath],
-                currentTravelTime + travelTime,
-                visitedStations
-            );
-
-            // If a quicker path is found, update quickestPath and quickestPathLines
-            if (result && (!quickestPath || result.travelTime < quickestPath.travelTime)) {
-                quickestPath = result;
-                quickestPathLines = [line];
-            } else if (result && result.travelTime === quickestPath.travelTime) {
-                quickestPathLines.push(line);
-            }
-        }
-    }
-
-    return quickestPath ? { path: quickestPath.path, travelTime: quickestPath.travelTime, lines: quickestPathLines } : null;
-}
 
 // const startStation1 = "Uhlandstrasse";
 // const endStation1 = "Krumme Lanke";
 
-// const quickestPathWithLines = findQuickestPathWithLines(berlinRailNetwork.connections, startStation1, endStation1);
+// const quickestPathWithLines = berlinRailNetwork.findQuickestPathWithLines(startStation1, endStation1);
 
 // if (quickestPathWithLines) {
 //     console.log("Quickest path:", quickestPathWithLines.path.join(" -> "));
@@ -643,3 +684,6 @@ function findQuickestPathWithLines(connections, startStation, endStation, curren
 // } else {
 //     console.log("No path found.");
 // }
+// const pathArray = ['U1', 'U9', 'U3'];
+// const isCorrect = berlinRailNetwork.isShortestPathCombinationCorrect(startStation1, endStation1, pathArray);
+// console.log("Is the path correct: ",isCorrect );
