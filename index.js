@@ -75,10 +75,10 @@ function isIdentical(arr1, arr2) {
 
     const isCorrect = isIdentical(quickestPathWithLines.lines, pathArray);
     if (isCorrect) {
-      resultElement.innerHTML = ":yay: the path is correct!";
+      resultElement.innerHTML = "😃 the path is correct!";
       document.body.style.backgroundColor = "green";
     } else {
-      resultElement.innerHTML = ":oh-no: the path is incorrect.";
+      resultElement.innerHTML = "😔 the path is incorrect.";
       document.body.style.backgroundColor = "red";
     }
     resultElement.innerHTML += `<br><b>Quickest path:</b> ${quickestPathWithLines.path.join(" -> ")}`;
