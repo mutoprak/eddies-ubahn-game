@@ -16,22 +16,46 @@ function isIdentical(arr1, arr2) {
 
   
   // Handle "Generate New Stations Pair" button click
-  const generatePairButton = document.getElementById("generatePair");
+  const newGameButton = document.getElementById("newGame");
   const stationAElement = document.getElementById("station-a");
   const stationBElement = document.getElementById("station-b");
   let startStation = "Alexanderplatz"; // Replace with your desired start station
   let endStation = "Zoologischer Garten"; // Replace with your desired end station
 
-  generatePairButton.addEventListener("click", function () {
+  newGameButton.addEventListener("click", function () {
       const randomStations = berlinRailNetwork.getRandomStationPair();
       console.log(randomStations);
       stationAElement.textContent = randomStations.from; 
       stationBElement.textContent = randomStations.to; 
       startStation = randomStations.from;
       endStation = randomStations.to;
+      // Loop through all <li> elements within the <ul> and remove them
+      var liElements = ulPath.getElementsByTagName("li");
+      var liArray = Array.from(liElements);
+      liArray.forEach(function(li) {
+        li.parentNode.removeChild(li);
+      });
+      while (ulAvailableLines.firstChild) {
+        ulAvailableLines.removeChild(ulAvailableLines.firstChild);
+      }
+      for (var i = 1; i <= 9; i++) {
+        // Create a new <li> element
+        var li = document.createElement("li");
+
+        // Set the text content of the new <li> element
+        li.textContent = "U" + i;
+
+        // Add a class to the <li> element
+        li.classList.add("U" + i);
+
+        // Append the new <li> element to the <ul>
+        ulAvailableLines.appendChild(li);
+    }
+      document.body.style.backgroundColor = "#333";
+      resultElement.textContent = "";
   });
 
-  // Handle form submission
+  // components in page
   const form = document.getElementById("pathForm");
   const resultElement = document.getElementById("result");
   const ulPath = document.getElementById("ubahn-trip");
@@ -51,15 +75,15 @@ function isIdentical(arr1, arr2) {
 
     const isCorrect = isIdentical(quickestPathWithLines.lines, pathArray);
     if (isCorrect) {
-      resultElement.textContent = "The path is correct!";
+      resultElement.innerHTML = ":yay: the path is correct!";
       document.body.style.backgroundColor = "green";
     } else {
-      resultElement.textContent = "The path is incorrect.";
-      resultElement.textContent += ` Quickest path: ${quickestPathWithLines.path.join(" -> ")}`;
-      resultElement.textContent += ` Travel time: ${quickestPathWithLines.travelTime}`;
-      resultElement.textContent += ` Lines: ${quickestPathWithLines.lines.join(" >> ")}`;
+      resultElement.innerHTML = ":oh-no: the path is incorrect.";
       document.body.style.backgroundColor = "red";
     }
+    resultElement.innerHTML += `<br><b>Quickest path:</b> ${quickestPathWithLines.path.join(" -> ")}`;
+    resultElement.innerHTML += `<br><b>Travel time:</b> ${quickestPathWithLines.travelTime}`;
+    resultElement.innerHTML += `<br><b>Lines:</b> ${quickestPathWithLines.lines.join(" >> ")}`;
   });
 
 
