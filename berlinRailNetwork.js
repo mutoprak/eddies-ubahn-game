@@ -587,8 +587,8 @@ const berlinRailNetwork = {
 
         return { from: fromStation, to: toStation };
     },
-
-    findQuickestPathWithLines(startStation, endStation) {
+    
+    findQuickestPathWithLines(startStation, endStation, lineChangePenalty = 0) {
         // Initialize data structures for Dijkstra's
         const distances = {};
         const previousStations = {};
@@ -619,7 +619,7 @@ const berlinRailNetwork = {
 
             for (const connection of berlinRailNetwork.connections[currentStation]) {
                 const { station: neighbor, travelTime, line } = connection;
-                const alt = distances[currentStation] + travelTime;
+                const alt = distances[currentStation] + travelTime + lineChangePenalty;
 
                 if (alt < distances[neighbor]) {
                     distances[neighbor] = alt;
