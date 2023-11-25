@@ -24,7 +24,7 @@ const berlinRailNetwork = {
         "Fehrbelliner Platz",
         "Spichernstrasse",
         "Gleisdreieck",
-        "Möckernbrücke",
+        "Moeckernbrücke",
         "Hallesches Tor",
         "Mehringdamm",
         "Bayerischer Platz",
